@@ -6,9 +6,7 @@ pipeline{
     agent{
         label "build"
     }
-    environment = {
-        VERSION =
-    }
+    
    
     stages{
         stage("sonar quality status"){
