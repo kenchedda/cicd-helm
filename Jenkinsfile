@@ -1,6 +1,6 @@
 def registry = 'http://18.217.120.92:8081/'
 def imageName = 'http://18.217.120.92:8081/repository/docker-hosted/springapp'
-def version   = '${env.BUILD_ID}'
+def version   = '${BUILD_ID}'
 
 pipeline{
     agent{
@@ -29,7 +29,7 @@ pipeline{
          steps {
            script {
              echo '<--------------- Docker Build Started --------------->'
-                app = docker.build(imageName+":"+version)
+                app = docker.build(imageName+":"version)
                     echo '<--------------- Docker Build Ends --------------->'
         }
       }
