@@ -33,9 +33,9 @@ pipeline{
                     script{
                         withCredentials([string(credentialsId: 'nexus', variable: 'nexus_cred')]){
                             sh """
-                            docker build -t 8.217.120.92:8083/springapp:1.0 .
-                            docker login -u admin -p $nexus_cred 8.217.120.92:8083
-                            docker push 8.217.120.92:8083//springapp:1.0
+                            docker build -t http://8.217.120.92:8083/springapp:1.0 .
+                            docker login -u admin -p $nexus_cred http://8.217.120.92:8083
+                            docker push http://8.217.120.92:8083//springapp:1.0
                             """
                     }
                         
