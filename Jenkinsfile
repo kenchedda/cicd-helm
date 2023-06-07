@@ -1,5 +1,5 @@
 def registry = 'http://18.217.120.92:8081/'
-def imageName = 'http://18.217.120.92:8081/repository/docker-hosted/springapp'
+def imageName = 'springapp'
 def version   = '1.0.2'
 
 pipeline{
