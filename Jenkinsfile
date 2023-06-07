@@ -31,9 +31,9 @@ pipeline{
     stage ('publish docker image') {
                 steps{
                     script{
-                        withCredentials([string(credentialsId: 'nexus', variable: 'nexus-cred')]) {
+                        withCredentials([string(credentialsId: 'nexus', variable: 'nexus-cred')]){
                             sh """
-                            docker login -t 8.217.120.92:8083/imageName+":"+version
+                            docker build -t 8.217.120.92:8083/imageName+":"+version
                             docker login -u admin -p $nexus_cred 8.217.120.92:8083
                             docker push 8.217.120.92:8083/imageName+":"+version
                             """
