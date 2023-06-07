@@ -48,12 +48,14 @@ pipeline{
        }
        stage ('nexus push') {
         steps{
+            script{
+                def readPomVersion = readMavenPom file: 'pom.xml' 
                 nexusArtifactUploader (
                    nexusVersion: 'nexus3',
                    protocol: 'http',
                    nexusUrl: '18.217.120.92:8081',
                    groupId: 'com.javatechie',
-                   version: 0.0.1-SNAPSHOT,
+                   version: "${readPomVersion.version}",
                    repository: 'docker-hosted',
                    credentialsId: 'nexus',
                    artifacts: [
