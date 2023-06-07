@@ -5,6 +5,7 @@ def version   = '1.0.2'
 pipeline{
     agent{
         label "build"
+    }
    
     
    
@@ -65,4 +66,4 @@ pipeline{
         }
        }
     }
-}       
+      
