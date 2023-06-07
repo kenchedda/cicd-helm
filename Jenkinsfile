@@ -6,6 +6,8 @@ pipeline{
     agent{
         label "build"
     }
+    
+    
    
     
    
@@ -46,7 +48,7 @@ pipeline{
        }
        stage ('nexus push') {
         steps{
-                nexusArtifactUploader(
+                nexusArtifactUploader (
                    nexusVersion: 'nexus3',
                    protocol: 'http',
                    nexusUrl: '18.217.120.92:8081',
@@ -57,7 +59,7 @@ pipeline{
                    artifacts: [
                     [artifactId: devops-integration,
                      classifier: '',
-                     file: 'target/devops-integration-v1.0.jar',
+                     file: 'target/devops-integration.jar',
                      type: 'jar']
         ]
      )
