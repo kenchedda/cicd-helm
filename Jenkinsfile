@@ -52,12 +52,12 @@ pipeline{
                         
             
 
-                    nexusArtifactUploader artifacts: 
-                    [
-                        [
-                         artifactId: 'devops-integration', 
-                         classifier: '', file: 'target/devops-integration.jar',
-                         type: 'jar'
+                    nexusArtifactUploader 
+                        artifacts: [
+                          [
+                            artifactId: 'devops-integration', 
+                            classifier: '', file: 'target/devops-integration.jar',
+                            type: 'jar'
                          ]
                          
                     ]
