@@ -60,7 +60,7 @@ pipeline{
                          type: 'jar'
                          ]
                          
-                    ],
+                    ]
                         credentialsId: 'nexus',
                         groupId: 'com.javatechie',
                         nexusUrl: '18.217.120.92:8081',
