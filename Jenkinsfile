@@ -1,4 +1,4 @@
-def registry = 'http://18.217.120.92:8081/'
+def registry = 'http://18.217.120.92:8081/repository/docker-hosted/'
 def imageName = 'springapp'
 def version   = '1.0.2'
 
@@ -35,16 +35,18 @@ pipeline{
       }
     }
 
-    stage (" Docker Publish "){
-        steps {
-            script {
-               echo '<--------------- Docker Publish Started --------------->'  
-                docker.withRegistry(registry, 'nexus'){
-                    app.push()
-                }    
-               echo '<--------------- Docker Publish Ended --------------->'  
-            }
+    stage ('publish docker image') {
+                steps{
+                    script{
+                        withCredentials([string(credentialsId: 'nexus', variable: 'nexus-cred')]) {
+                            sh 'docker login -u admin -p $nexus_cred 8.217.120.92:8081'
+                            sh 'docker push 8.217.120.92:8081/imageName+":"+version'
+                    }
+                        
+                         
+            
+                }
+            }                
         }
-    }
     }
 }       
