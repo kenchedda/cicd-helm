@@ -5,7 +5,7 @@ def version   = '1.0.2'
 pipeline{
     agent{
         label "build"
-    }
+   
     
    
     stages{
@@ -34,8 +34,7 @@ pipeline{
                         withCredentials([string(credentialsId: 'nexus', variable: 'nexus_cred')]){
                             sh """
                             docker build -t 18.217.120.92:8083/springapp:1.0 .
-                            docker login -u admin -p $nexus_cred 18.217.120.92:8083
-                            docker push 18.217.120.92:8083//springapp:1.0
+                           
                             """
                     }
                         
@@ -43,6 +42,27 @@ pipeline{
             
                 }
             }                
+       }
+       stage ('nexus push') {
+        steps{
+                nexusArtifactUploader(
+                   nexusVersion: 'nexus3',
+                   protocol: 'http',
+                   nexusUrl: '18.217.120.92:8081',
+                   groupId: 'com.javatechie',
+                   version: 1.0,
+                   repository: 'docker-hosted',
+                   credentialsId: 'nexus',
+                   artifacts: [
+                    [artifactId: devops-integration,
+                     classifier: '',
+                     file: 'target/devops-integration-v1.0.jar',
+                     type: 'jar']
+        ]
+     )
+
+            }
         }
+       }
     }
 }       
