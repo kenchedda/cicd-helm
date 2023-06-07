@@ -6,6 +6,9 @@ pipeline{
     agent{
         label "build"
     }
+    environment = {
+        VERSION =
+    }
    
     stages{
         stage("sonar quality status"){
@@ -39,8 +42,9 @@ pipeline{
                 steps{
                     script{
                         withCredentials([string(credentialsId: 'nexus', variable: 'nexus-cred')]) {
-                            sh 'docker login -u admin -p $nexus_cred 8.217.120.92:8081'
-                            sh 'docker push 8.217.120.92:8081/imageName+":"+version'
+                            
+                            sh 'docker login -u admin -p $nexus_cred 8.217.120.92:8083'
+                            sh 'docker push 8.217.120.92:8083 imageName+":"+version'
                     }
                         
                          
