@@ -36,7 +36,7 @@ pipeline{
                     script{
                         withCredentials([string(credentialsId: 'nexus', variable: 'nexus_cred')]){
                             sh """
-                            docker build -t 18.217.120.92:8083/springapp:1.0 .
+                            docker build -t springapp:1.0 .
                            
                             """
                     }
@@ -46,28 +46,32 @@ pipeline{
                 }
             }                
        }
-       stage ('nexus push') {
-        steps{
-            script{
-                def readPomVersion = readMavenPom file: 'pom.xml' 
-                nexusArtifactUploader (
-                   nexusVersion: 'nexus3',
-                   protocol: 'http',
-                   nexusUrl: '18.217.120.92:8081',
-                   groupId: 'com.javatechie',
-                   version: "${readPomVersion.version}",
-                   repository: 'docker-hosted',
-                   credentialsId: 'nexus',
-                   artifacts: [
-                    [artifactId: devops-integration,
-                     classifier: '',
-                     file: 'target/devops-integration.jar',
-                     type: 'jar']
-        ]
-     )
+        stage('upload jar to nexus'){
+            steps {
+                script {
+                    def readPomVersion = readMavenPom file: 'pom.xml'     
+            
 
+                    nexusArtifactUploader artifacts: 
+                    [
+                        [
+                         artifactId: 'devops-integration', 
+                         classifier: '', file: 'target/devops-integration.jar',
+                         type: 'jar'
+                         ]
+                         
+                    ],
+                        credentialsId: 'nexus',
+                        groupId: 'com.javatechie',
+                        nexusUrl: '18.217.120.92:8081',
+                        nexusVersion: 'nexus3',
+                        protocol: 'http', 
+                        repository: docker-hosted, 
+                        version: "${readPomVersion.version}"
+
+                
+                }
             }
         }
-       }
     }
 }  
