@@ -1,6 +1,6 @@
 def registry = 'http://18.217.120.92:8081/'
 def imageName = 'http://18.217.120.92:8081/repository/docker-hosted/springapp'
-def version   = '${BUILD_ID}'
+def version   = '${BUILD_ID.0}'
 
 pipeline{
     agent{
