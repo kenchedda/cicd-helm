@@ -7,7 +7,7 @@ pipeline{
         label "build"
     }
     
-    
+
    
     
    
@@ -53,7 +53,7 @@ pipeline{
                    protocol: 'http',
                    nexusUrl: '18.217.120.92:8081',
                    groupId: 'com.javatechie',
-                   version: 1.0,
+                   version: 0.0.1-SNAPSHOT,
                    repository: 'docker-hosted',
                    credentialsId: 'nexus',
                    artifacts: [
