@@ -1,7 +1,12 @@
+def registry = 'http://18.217.120.92:8081/'
+def imageName = 'http://18.217.120.92:8081/repository/docker-hosted/springapp'
+def version   = '${env.BUILD_ID}'
+
 pipeline{
     agent{
         label "build"
     }
+   
     stages{
         stage("sonar quality status"){
             
@@ -20,12 +25,26 @@ pipeline{
                 }
             }
         }
-        stage("docker build & push to nexus repo"){
-            steps{
-                script{
-                    
-                }
+       stage(" Docker Build ") {
+      steps {
+        script {
+           echo '<--------------- Docker Build Started --------------->'
+           app = docker.build(imageName+":"+version)
+           echo '<--------------- Docker Build Ends --------------->'
+        }
+      }
+    }
+
+    stage (" Docker Publish "){
+        steps {
+            script {
+               echo '<--------------- Docker Publish Started --------------->'  
+                docker.withRegistry(registry, 'nexus'){
+                    app.push()
+                }    
+               echo '<--------------- Docker Publish Ended --------------->'  
             }
         }
+    }
     }
 }       
