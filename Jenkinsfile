@@ -29,6 +29,7 @@ pipeline{
                 }
             }
         }
+    
       
 
     stage ('docker build and docker push') {
@@ -44,6 +45,7 @@ pipeline{
          }       
             }
         }
+    }
         stage('identifying misconfigs using datree in helm'){
             steps{
                 script{
@@ -60,6 +62,6 @@ pipeline{
 		}
 	}
      
-    }
+    
 }
 }  
