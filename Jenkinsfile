@@ -50,7 +50,7 @@ pipeline{
             steps{
                 script{
                     withCredentials([string(credentialsId: 'nexus', variable: 'nexus_cred')]) {
-                        dir('kubernetes/')
+                        dir('kubernetes/') {
                     sh """
                     tar -cvzf myapp-v1.tgz  myapp/
                      curl -u admin:$nexus_cred http://18.223.255.119:8081/repository/helm-hosted/ --upload-file myapp-v1.tgz -v             
@@ -69,3 +69,4 @@ pipeline{
     
 }
 }  
+}
