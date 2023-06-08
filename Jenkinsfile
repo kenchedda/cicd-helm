@@ -1,6 +1,4 @@
-def registry = 'http://18.217.120.92:8081/repository/docker-hosted/'
-def imageName = 'springapp'
-def version   = '1.0.2'
+
 
 pipeline{
     agent{
@@ -46,32 +44,5 @@ pipeline{
                 }
             }                
        }
-        stage('upload jar to nexus'){
-            steps {
-                script {
-                        
-            
-
-                    nexusArtifactUploader 
-                        artifacts: [
-                          [
-                            artifactId: 'devops-integration', 
-                            classifier: '', file: 'target/devops-integration.jar',
-                            type: 'jar'
-                         ]
-                         
-                    ]
-                        credentialsId: 'nexus',
-                        groupId: 'com.javatechie',
-                        nexusUrl: '18.217.120.92:8081',
-                        nexusVersion: 'nexus3',
-                        protocol: 'http', 
-                        repository: docker-hosted, 
-                        version: 1.0
-
-                
-                }
-            }
-        }
     }
 }  
