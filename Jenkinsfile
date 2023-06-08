@@ -46,15 +46,18 @@ pipeline{
             }
         }
     }
-        stage('identifying misconfigs using datree in helm'){
+        stage('publish helm charts into nexus'){
             steps{
                 script{
-                    dir('kubernetes/myapp') {
-                      sh 'helm datree test .'
-}
-                }
+                    withCredentials([string(credentialsId: 'nexus', variable: 'nexus_cred')]) {
+                        dir('kubernetes/myapp/')
+                    sh """
+                     curl -u admin:$nexus_cred http://18.223.255.119:8081/repository/helm-hosted/ --upload-file myapp-v1.tgz -v             
+                     """        
+          }
+
             }
-        
+            }
 
         post {
 		  always {
